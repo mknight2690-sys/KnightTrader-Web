@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>KnightTrader Web App: an AI trader that runs on your own exchange account, 24/7</title>
+<meta name="description" content="KnightTrader runs Hermes AI on your own BloFin or Coinbase Advanced account, around the clock, with risk rules enforced in code. $47/month.">
+<link rel="stylesheet" href="styles.css">
+<style>
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px}.card h3{margin:0 0 8px}
+.rules li{margin:8px 0}.mono{font-family:JetBrains Mono,monospace}.disc{font-size:.85rem;opacity:.8;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
+.sec{padding:64px 0}.sec h2{margin-top:0}.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+</style></head><body>
+<header class="site-header"><div class="container"><div class="logo"><span class="logo-mark">KT</span><span class="logo-text">KnightTrader</span><span class="logo-badge">Web</span></div>
+<nav class="site-nav"><a href="#how">How it works</a><a href="#risk">Risk rules</a><a href="#security">Security</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+<div class="header-cta"><a class="btn-primary btn-sm" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Start — $47/mo</a></div></div></header>
+<main>
+<section class="hero"><div class="container">
+<div class="hero-badge">Now a web app. Nothing to install.</div>
+<h1>An AI trader that works your own exchange account every 5 minutes, with the rules written in code.</h1>
+<p class="hero-sub">Sign up, paste a BloFin or Coinbase Advanced API key, and Hermes starts reviewing the market and your positions on our server around the clock. Every trade has a take-profit and a stop-loss. Every trade is sized by a hard cap. Every result becomes a lesson it keeps.</p>
+<div class="hero-actions"><a class="btn-primary" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Start for $47/month</a><a class="btn-secondary" href="https://knighttrader-1-1.tail7aa3c9.ts.net">Open the web app</a></div>
+<p class="hero-trust">Your money stays on your exchange. We only ever hold a trading key, and we tell you to leave withdrawals switched off.</p>
+<div class="hero-proof"><div class="proof-item"><div class="proof-number">24/7</div><div class="proof-label">Runs server-side, PC off</div></div><div class="proof-item"><div class="proof-number">10%</div><div class="proof-label">Hard ceiling per trade</div></div><div class="proof-item"><div class="proof-number">AES-256</div><div class="proof-label">Keys, memories and chats encrypted</div></div></div>
+</div></section>
+
+<section id="how" class="sec section-dark"><div class="wrap"><h2>How it works, start to finish</h2><div class="grid">
+<div class="card"><h3>1. Create your account</h3><p>Sign up with email or Google. Each person gets their own account, keys, memory and history.</p></div>
+<div class="card"><h3>2. Connect your exchange</h3><p>The guided <a href="https://knighttrader-1-1.tail7aa3c9.ts.net/onboarding.html">setup page</a> walks you through making a BloFin or Coinbase Advanced API key with trading on and withdrawals off, then checks that the key works.</p></div>
+<div class="card"><h3>3. Hermes takes the shift</h3><p>Every 5 minutes, on our server, Hermes reads the market and your account, decides, and acts, or deliberately does nothing. Your computer can be off.</p></div>
+<div class="card"><h3>4. You watch and talk to it</h3><p>Follow it live on the dashboard, and ask it why it took a trade on its own chat page.</p></div>
+</div></div></section>
+
+<section id="risk" class="sec"><div class="wrap"><h2>Risk rules the AI can't talk its way around</h2>
+<p>An AI can be persuasive. These limits aren't suggestions in a prompt. They're checked in code before any order reaches your exchange, and an order that breaks them is rejected.</p>
+<ul class="rules">
+<li><b>Mandatory take-profit and stop-loss</b> on every position.</li>
+<li><b>Reward-to-risk of at least 2.5</b>. A trade that risks $1 must target $2.50 or more.</li>
+<li><b>5x leverage, isolated margin</b>, so one bad trade can't drain the rest of the account.</li>
+<li><b>Percent sizing with a hard 10% ceiling</b>. Hermes sizes each trade to your account and can never put more than 10% of it in one trade.</li>
+<li><b>Pump filter</b> that skips coins that have already gone vertical.</li></ul></div></section>
+
+<section class="sec section-dark"><div class="wrap"><h2>It learns, and it remembers</h2><div class="grid">
+<div class="card"><h3>A lesson after every trade</h3><p>When a trade closes, Hermes writes down what worked and what didn't, and reads it before the next decision.</p></div>
+<div class="card"><h3>A head start on day one</h3><p>Every account starts with a shared seed of lessons learned in months of live trading with the desktop version, so it doesn't start from zero.</p></div>
+<div class="card"><h3>Memory that keeps room</h3><p>Hermes summarizes and compacts its own memory as it grows, so there's always space for new lessons.</p></div>
+<div class="card"><h3>Free models, chosen for you</h3><p>An autoselector picks among free Nous models, rotates keys and fails over automatically if a model stalls, so a slow provider doesn't skip a cycle.</p></div>
+</div></div></section>
+
+<section class="sec"><div class="wrap"><h2>A dashboard that shows you everything</h2><div class="grid">
+<div class="card"><h3>Live from the exchange</h3><p>Balance and open positions streamed straight from your exchange account, not estimated.</p></div>
+<div class="card"><h3>Equity curve</h3><p>Your account over 1H, 1D, 1W, 1M or All.</p></div>
+<div class="card"><h3>Voice announcer</h3><p>Hear it out loud when a position opens or closes.</p></div>
+<div class="card"><h3>Cron panel</h3><p>See which model ran each cycle and how many messages it used. A pinned section nav gets you anywhere in one tap.</p></div>
+</div></div></section>
+
+<section id="security" class="sec section-dark"><div class="wrap"><h2>Encrypted at rest, quantum-resistant by design</h2>
+<p>Your API keys, Hermes memories and chats are encrypted with <b>AES-256-GCM</b>. The master key is sealed to the server, not stored next to the data. Passwords are hashed with <b>scrypt</b>, so we never keep them in readable form.</p>
+<p>Why AES-256: the best known quantum attack on symmetric encryption (Grover's algorithm) only halves its effective strength, which leaves about 128-bit security. That's still far beyond reach. So stored data is quantum-resistant at rest. To be precise: the connection between your browser and the site uses standard HTTPS, which isn't post-quantum yet.</p>
+<p>And because withdrawals stay off on your key, even a leaked key can't move your money out of the exchange.</p></div></section>
+
+<section id="pricing" class="sec section-accent"><div class="wrap"><h2>One plan, billed monthly</h2>
+<div class="pricing-card"><div class="pricing-header"><div class="pricing-price">$47<span>/month</span></div><div class="pricing-label">KnightTrader Web</div></div>
+<ul class="pricing-list"><li>Hermes trading your BloFin or Coinbase Advanced account 24/7</li><li>Code-enforced risk rules</li><li>Persistent learning plus the shared lesson seed</li><li>Live dashboard, equity curve, voice announcer and chat</li><li>AES-256-GCM encryption for keys, memories and chats</li><li>Every update while you're subscribed</li><li>Cancel anytime through Stripe</li></ul>
+<div class="cta"><a class="btn-primary" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Start for $47/month</a></div>
+<p>Prefer the desktop app? It's still available for existing members on the <a href="https://1bananaonthewall-ux.github.io/knighttrader-blo-site/#download">download page</a>.</p></div></div></section>
+
+<section id="faq" class="sec"><div class="wrap"><h2>FAQ</h2><div class="faq">
+<details><summary>Does KnightTrader hold my money?</summary><p>No. Funds stay on your exchange account. We store a trading API key, encrypted, and the setup guide has you leave withdrawals off.</p></details>
+<details><summary>Do I need to keep my computer on?</summary><p>No. Hermes runs on our server every 5 minutes.</p></details>
+<details><summary>Which exchanges?</summary><p>BloFin and Coinbase Advanced. You must be eligible to use the exchange under its own terms.</p></details>
+<details><summary>Will it make money?</summary><p>Nobody can promise that. It will trade with fixed limits, and it will lose some trades. Start with an amount you can afford to lose.</p></details>
+<details><summary>Can I stop it?</summary><p>Yes. Pause trading or delete your key at any time, and cancel the subscription anytime through Stripe.</p></details>
+</div>
+<p class="disc"><b>Risk disclaimer.</b> Trading crypto and leveraged derivatives carries a high risk of loss, including loss of your whole deposit. KnightTrader is software, not a financial adviser, and nothing here is financial advice. Past performance, including lessons drawn from past trades, doesn't guarantee future results. You're responsible for your trades and for following your exchange's terms and the laws where you live.</p></div></section>
+</main>
+<footer class="site-footer"><div class="container"><p>KnightTrader — AI trading on your own exchange account.</p></div></footer>
+</body></html>
