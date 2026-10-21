@@ -1,102 +1,95 @@
 <!DOCTYPE html>
 <html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>KnightTrader Web App: an AI trader that runs on your own exchange account, 24/7</title>
-<meta name="description" content="KnightTrader runs Hermes AI on your own BloFin or Coinbase Advanced account, around the clock, with risk rules enforced in code. $47/month.">
+<title>KnightTrader: AI crypto trading you can watch work, paper first</title>
+<meta name="description" content="KnightTrader is a multi-user AI crypto trading web app. Start with paper trading at live prices, watch your first run immediately, then go live with your own BloFin or Coinbase API keys.">
+<meta name="theme-color" content="#0b0f17">
 <link rel="stylesheet" href="styles.css">
 <style>
-.wrap{max-width:1080px;margin:0 auto;padding:0 20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 20px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:18px}
 .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:22px}.card h3{margin:0 0 8px}
-.rules li{margin:8px 0}.mono{font-family:JetBrains Mono,monospace}.disc{font-size:.85rem;opacity:.8;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
-.sec{padding:64px 0}.sec h2{margin-top:0}.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+.rules li{margin:8px 0}.disc{font-size:.85rem;opacity:.85;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
+.sec{padding:64px 0}.sec h2{margin-top:0}.lead{font-size:1.08rem;max-width:760px}.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+.steps{counter-reset:s}.risk-bar{background:rgba(255,180,0,.08);border:1px solid rgba(255,180,0,.35);border-radius:10px;padding:12px 16px;font-size:.9rem;margin:18px 0}
+.site-nav{flex-wrap:wrap}
+@media (max-width:720px){.site-nav{display:none}.sec{padding:44px 0}.hero h1{font-size:1.9rem}.cta a,.hero-actions a{flex:1 1 100%;text-align:center}}
 </style></head><body>
 <header class="site-header"><div class="container"><div class="logo"><span class="logo-mark">KT</span><span class="logo-text">KnightTrader</span><span class="logo-badge">Web</span></div>
-<nav class="site-nav"><a href="#how">How it works</a><a href="#risk">Risk rules</a><a href="#security">Security</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
-<div class="header-cta"><a class="btn-primary btn-sm" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Start — $47/mo</a></div></div></header>
+<nav class="site-nav" aria-label="Sections"><a href="#how">How it works</a><a href="#engine">AI engine</a><a href="#network">Network</a><a href="#medic">Medic</a><a href="#risk">Risk rules</a><a href="#pricing">Pricing</a><a href="#faq">FAQ</a></nav>
+<div class="header-cta"><a class="btn-primary btn-sm" href="https://knighttrader.tail7aa3c9.ts.net">Open the app</a></div></div></header>
 <main>
 <section class="hero"><div class="container">
-<div class="hero-badge">Now a web app. Nothing to install.</div>
-<h1>An AI trader that works your own exchange account every 10 minutes, with the rules written in code.</h1>
-<p class="hero-sub">Sign up, paste a BloFin or Coinbase Advanced API key, and Hermes starts reviewing the market and your positions on our server around the clock. Every trade has a take-profit and a stop-loss. Every trade is sized by a hard cap. Every result becomes a lesson it keeps.</p>
-<div class="hero-actions"><a class="btn-primary" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Start for $47/month</a><a class="btn-secondary" href="https://knighttrader-1-1.tail7aa3c9.ts.net">Open the web app</a></div>
-<p class="hero-trust">Your money stays on your exchange. We only ever hold a trading key, and we tell you to leave withdrawals switched off.</p>
-<div class="hero-proof"><div class="proof-item"><div class="proof-number">24/7</div><div class="proof-label">Runs server-side, PC off</div></div><div class="proof-item"><div class="proof-number">10%</div><div class="proof-label">Hard ceiling per trade</div></div><div class="proof-item"><div class="proof-number">AES-256</div><div class="proof-label">Keys, memories and chats encrypted</div></div></div>
+<div class="hero-badge">Web app · Google sign-in · Paper trading first</div>
+<h1>An AI crypto trader you can watch work before you risk a dollar.</h1>
+<p class="hero-sub">Sign in with Google, switch to Paper, pick a starting balance, and KnightTrader's AI starts trading it at live market prices right away. You see the first run happen while you watch, then it keeps going every 15 minutes. When you're ready, connect your own BloFin or Coinbase API keys to trade live.</p>
+<div class="hero-actions"><a class="btn-primary" href="https://knighttrader.tail7aa3c9.ts.net">Start paper trading</a><a class="btn-secondary" href="#pricing">See pricing</a></div>
+<p class="hero-trust">Your money stays on your exchange. For live trading you supply a trading-only API key, and you keep withdrawals switched off.</p>
 </div></section>
 
-<section id="how" class="sec section-dark"><div class="wrap"><h2>How it works, start to finish</h2><div class="grid">
-<div class="card"><h3>1. Create your account</h3><p>Sign up with email or Google. Each person gets their own account, keys, memory and history.</p></div>
-<div class="card"><h3>2. Connect your exchange</h3><p>The guided <a href="https://knighttrader-1-1.tail7aa3c9.ts.net/onboarding.html">setup page</a> walks you through making a BloFin or Coinbase Advanced API key with trading on and withdrawals off, then checks that the key works.</p></div>
-<div class="card"><h3>3. Hermes takes the shift</h3><p>Every 10 minutes, around the clock on our server, Hermes reads the market and your account, decides, and acts, or deliberately does nothing. Your computer can be off.</p></div>
-<div class="card"><h3>4. You watch and talk to it</h3><p>Follow it live on the dashboard, and ask it why it took a trade on its own chat page.</p></div>
-</div></div></section>
-
-<section id="phone" class="sec section-accent"><div class="wrap"><h2>All you need is a phone</h2>
-<p>No PC, no server, nothing to install. Open the BloFin or Coinbase app, verify your ID, fund your account, and create an API key with trading on and withdrawals off. Then paste it into KnightTrader from your phone's browser. We run the servers that host Hermes, so it keeps trading around the clock even with your phone locked in your pocket. The dashboard, the live equity curve, voice alerts and the chat with your Hermes all work on a phone screen.</p>
-</div></section>
-<section id="risk" class="sec"><div class="wrap"><h2>Risk rules the AI can't talk its way around</h2>
-<p>An AI can be persuasive. These limits aren't suggestions in a prompt. They're checked in code before any order reaches your exchange, and an order that breaks them is rejected.</p>
-<ul class="rules">
-<li><b>Mandatory take-profit and stop-loss</b> on every position.</li>
-<li><b>Reward-to-risk of at least 2.5</b>. A trade that risks $1 must target $2.50 or more.</li>
-<li><b>5x leverage, isolated margin</b>, so one bad trade can't drain the rest of the account.</li>
-<li><b>Percent sizing with a hard 10% ceiling</b>. Hermes sizes each trade to your account and can never put more than 10% of it in one trade.</li>
-<li><b>Pump filter</b> that skips coins that have already gone vertical.</li></ul></div></section>
-
-<section class="sec section-dark"><div class="wrap"><h2>It learns, and it remembers</h2><div class="grid">
-<div class="card"><h3>A lesson after every trade</h3><p>When a trade closes, Hermes writes down what worked and what didn't, and reads it before the next decision.</p></div>
-<div class="card"><h3>A head start on day one</h3><p>Every account starts with a shared seed of lessons learned in months of live trading with the desktop version, so it doesn't start from zero.</p></div>
-<div class="card"><h3>Memory that keeps room</h3><p>Hermes summarizes and compacts its own memory as it grows, so there's always space for new lessons.</p></div>
-<div class="card"><h3>Free models, chosen for you</h3><p>An autoselector picks among free Nous models, rotates keys and fails over automatically if a model stalls, so a slow provider doesn't skip a cycle.</p></div>
-</div></div></section>
-
-<section id="network" class="sec section-accent"><div class="wrap"><h2>Every member makes every Hermes smarter</h2>
-<p>Most trading bots learn alone. KnightTrader's don't. Every member's Hermes, plus a fleet of paper-only test accounts, feeds one shared memory: lessons, strategy tests, paper trades and real trade history from both BloFin and Coinbase. Each Hermes reads from it before it decides and adds to it after.</p>
-<p>If you know crypto, you'll recognize the idea: it works a lot like <b>proof of stake</b>. In proof of stake, everyone who takes part helps secure the network and shares in what it builds. Here, everyone who joins strengthens the shared intelligence, and everyone draws on it. If that term is new to you, think of a team that pools its notes: each new person adds what they learn, and everyone benefits.</p>
-<p>We're honestly a little giddy about what shipped today, so here's the tour:</p>
-<div class="grid">
-<div class="card"><h3>A live Strategy Leaderboard</h3><p>Watch it stream. Rows slide up and down as rankings change. The live TA method is pinned on top, and a challenger only takes its place after beating it in mental-trade tests that are checked against real prices, not the AI's own say-so.</p></div>
-<div class="card"><h3>Pooled Lessons, as they happen</h3><p>A feed of what the network learns, like "User ***2 closed long on ETH. Lesson learned: …". Every member sees it, even before taking a single trade. Anonymized, always.</p></div>
-<div class="card"><h3>The whole market, every tick</h3><p>On BloFin, Hermes screens all 523 perps every cycle. On Coinbase, every US-tradable perp.</p></div>
-<div class="card"><h3>Test accounts doing the homework</h3><p>Paper-only accounts trade 24/7, testing current, combined and brand-new strategies and logging lessons, so the learning curve flattens for everyone.</p></div>
-<div class="card"><h3>Memory that never runs out of room</h3><p>The shared memory summarizes and compacts itself automatically, so there's always space for the next lesson.</p></div>
-<div class="card"><h3>Day one, not day zero</h3><p>A new member's Hermes starts with everything the network has learned so far.</p></div>
-<div class="card"><h3>Shared lessons, private accounts</h3><p>Only anonymized trading data is pooled. Names, emails, API keys and balances are never shared.</p></div>
+<section id="how" class="sec section-dark"><div class="wrap"><h2>How it works</h2><div class="grid steps">
+<div class="card"><h3>1. Sign in with Google</h3><p>Each person gets their own account, settings, memory and history.</p></div>
+<div class="card"><h3>2. Choose Paper and a starting balance</h3><p>Tell it how much simulated money to start with. Paper trades fill at live market prices, not made-up ones.</p></div>
+<div class="card"><h3>3. Watch the first run now</h3><p>The first AI run starts the moment you switch, so you see it working while you're looking. After that it runs every 15 minutes on the server, with your device off.</p></div>
+<div class="card"><h3>4. Go live when you choose</h3><p>Live trading uses your own BloFin or Coinbase API keys. Nothing trades with real money until you add them.</p></div>
 </div>
-<p class="note"><small>It's an analogy only: there's no staking, no token and no yield. More shared data means better-informed decisions, not guaranteed profits. Trading carries risk.</small></p>
-</div></section>
+<div class="cta"><a class="btn-primary" href="https://knighttrader.tail7aa3c9.ts.net">Try it on paper</a></div></div></section>
 
-<section class="sec"><div class="wrap"><h2>A dashboard that shows you everything</h2><div class="grid">
-<div class="card"><h3>Live from the exchange</h3><p>Balance and open positions streamed straight from your exchange account, not estimated.</p></div>
-<div class="card"><h3>Equity curve</h3><p>Your account over 1H, 1D, 1W, 1M or All.</p></div>
-<div class="card"><h3>Voice announcer</h3><p>Hear it out loud when a position opens or closes.</p></div>
-<div class="card"><h3>Cron panel</h3><p>See which model ran each cycle and how many messages it used. A pinned section nav gets you anywhere in one tap.</p></div>
-<div class="card"><h3>Checkout to dashboard in one tap</h3><p>Subscribe through Stripe, tap Continue with Google, and you're in. Your subscription links itself. No codes to copy.</p></div>
-<div class="card"><h3>Settings, easy to find</h3><p>The ⚙ in the header lets you link a new Google email or manage your subscription.</p></div>
+<section id="engine" class="sec"><div class="wrap"><h2>An AI strategy engine that keeps testing itself</h2>
+<p class="lead">KnightTrader doesn't run one fixed idea forever. It keeps building, testing and ranking strategies in the background, and only promotes what holds up against real prices.</p>
+<div class="grid">
+<div class="card"><h3>Mental trading</h3><p>Simulated trades run alongside your account, so new ideas are tested without touching your balance.</p></div>
+<div class="card"><h3>Strategies and combos</h3><p>The engine creates new strategies and combinations of existing ones, then tests them side by side.</p></div>
+<div class="card"><h3>Champion promotion</h3><p>A challenger replaces the current champion only after beating it in tests checked against real market data, not the AI's own say-so.</p></div>
+<div class="card"><h3>Hermes AI with a free-model autoselector</h3><p>Hermes makes the decisions. An autoselector chooses among free AI models and fails over if one stalls, so a slow provider doesn't skip a run.</p></div>
+<div class="card"><h3>Readiness dashboard</h3><p>See what's running, what's been tested and how the system is doing, all in one place.</p></div>
+<div class="card"><h3>A fleet of test bots</h3><p>Paper-only test bots trade around the clock, trying current, combined and new strategies so every account benefits from what they learn.</p></div>
 </div></div></section>
 
-<section id="medic" class="sec"><div class="wrap"><h2>New this week, and we're pretty proud of it</h2>
-<div class="card"><h3>KT Medic: a repair crew that never sleeps</h3><p>KT Medic watches the whole system 24/7. When a run gets stuck or something breaks, it frees it up and applies fixes from a playbook of every repair we've made so far. Not every problem can be fixed automatically, so it flags anything it can't handle to a human.</p></div>
-<div class="card"><h3>Live Margin Used</h3><p>Your dashboard now streams the total margin your open positions are using, plus the out-of-pocket margin on each open and closed trade. You see what's really on the line, as it changes.</p></div>
-<div class="card"><h3>A fresh look every 10 minutes</h3><p>Every account gets its own run, with 10 minutes between runs. Hermes takes as long as she needs to think, then rests 10 minutes before looking again.</p></div>
+<section id="network" class="sec section-accent"><div class="wrap"><h2>The network: one shared memory, secured like proof of stake</h2>
+<p class="lead">Every part of KnightTrader writes what it learns to one shared memory ledger, <code>memory.md</code>. Before anything is added, the rest of the system has to agree it's true.</p>
+<div class="grid">
+<div class="card"><h3>Every component is a validator</h3><p>The trading engine, each bot, the strategy builder, the AI and Medic all take part. Each earns stake from its verified track record.</p></div>
+<div class="card"><h3>Stake-weighted validation</h3><p>Any validator can propose an entry: a lesson, a strategy result, a promotion or a repair. It commits only after enough stake-weighted validators check it against real data and approve.</p></div>
+<div class="card"><h3>Append-only, hash-chained</h3><p>Approved entries become blocks linked by hash, so past entries can't be quietly edited.</p></div>
+<div class="card"><h3>Being wrong costs stake</h3><p>A validator whose entries later prove wrong loses stake, so it carries less weight next time.</p></div>
+<div class="card"><h3>Quantum-resistant</h3><p>The chain uses SHA3-256 hashing, and every proposal and vote carries an ML-DSA (FIPS 204) post-quantum signature.</p></div>
+<div class="card"><h3>Shared lessons, private accounts</h3><p>Only anonymized trading knowledge is pooled. Names, emails, API keys and balances are never shared.</p></div>
+</div>
+<p class="note"><small>"Proof of stake" describes how entries are validated inside KnightTrader. There's no token, no staking of your money and no yield. Better-informed decisions are not guaranteed profits.</small></p>
 </div></section>
-<section id="security" class="sec section-dark"><div class="wrap"><h2>Encrypted at rest, quantum-resistant by design</h2>
-<p>Your API keys, Hermes memories and chats are encrypted with <b>AES-256-GCM</b>. The master key is sealed to the server, not stored next to the data. Passwords are hashed with <b>scrypt</b>, so we never keep them in readable form.</p>
-<p>Why AES-256: the best known quantum attack on symmetric encryption (Grover's algorithm) only halves its effective strength, which leaves about 128-bit security. That's still far beyond reach. So stored data is quantum-resistant at rest. To be precise: the connection between your browser and the site uses standard HTTPS, which isn't post-quantum yet.</p>
-<p>And because withdrawals stay off on your key, even a leaked key can't move your money out of the exchange.</p></div></section>
+
+<section id="medic" class="sec"><div class="wrap"><h2>Medic: repairs that stay fixed</h2>
+<p class="lead">Medic watches the whole system around the clock. When something stalls or breaks, it doesn't just restart and hope. It finds the root cause, logs it, and applies a permanent fix so the same problem doesn't come back.</p>
+</div></section>
+
+<section id="risk" class="sec section-dark"><div class="wrap"><h2>Risk rules enforced in code</h2>
+<p>These limits are checked in code before an order reaches your exchange. An order that breaks them is rejected.</p>
+<ul class="rules">
+<li><b>Take-profit and stop-loss</b> on every position.</li>
+<li><b>Minimum reward-to-risk of 2.5</b>: a trade that risks $1 must target at least $2.50.</li>
+<li><b>Isolated margin with capped leverage</b>, so one trade can't drain the rest of the account.</li>
+<li><b>Hard ceiling on position size</b> as a percentage of your account.</li>
+<li><b>Pump filter</b> that skips coins that have already gone vertical.</li></ul>
+<div class="risk-bar"><b>Trading involves risk.</b> Crypto and leveraged trading can lose money quickly, including your whole deposit. Start on paper, and only trade live with money you can afford to lose.</div>
+</div></section>
+
+<section id="security" class="sec"><div class="wrap"><h2>Your keys, your exchange</h2>
+<p>KnightTrader never holds your funds. Live trading needs a trading API key from your own exchange account, stored encrypted on the server. Keep withdrawals off on that key, so even a leaked key can't move money out.</p></div></section>
 
 <section id="pricing" class="sec section-accent"><div class="wrap"><h2>One plan, billed monthly</h2>
 <div class="pricing-card"><div class="pricing-header"><div class="pricing-price">$47<span>/month</span></div><div class="pricing-label">KnightTrader Web</div></div>
-<ul class="pricing-list"><li>Hermes trading your BloFin or Coinbase Advanced account 24/7</li><li>Code-enforced risk rules</li><li>Persistent learning plus the shared lesson seed</li><li>Live dashboard, equity curve, voice announcer and chat</li><li>AES-256-GCM encryption for keys, memories and chats</li><li>Every update while you're subscribed</li><li>Cancel anytime through Stripe</li></ul>
-<div class="cta"><a class="btn-primary" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Start for $47/month</a></div>
-<p>Prefer the desktop app? It's still available for existing members on the <a href="https://1bananaonthewall-ux.github.io/knighttrader-blo-site/#download">download page</a>.</p></div></div></section>
+<ul class="pricing-list"><li>Paper trading at live prices, with your own starting balance</li><li>Live trading on your BloFin or Coinbase account with your own keys</li><li>AI strategy engine, mental trading and champion promotion</li><li>Shared, quantum-resistant memory network</li><li>Medic self-healing and the readiness dashboard</li><li>Cancel anytime through Stripe</li></ul>
+<div class="cta"><a class="btn-primary" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Subscribe for $47/month</a><a class="btn-secondary" href="https://knighttrader.tail7aa3c9.ts.net">Open the app</a></div>
+</div></div></section>
 
 <section id="faq" class="sec"><div class="wrap"><h2>FAQ</h2><div class="faq">
-<details><summary>Does KnightTrader hold my money?</summary><p>No. Funds stay on your exchange account. We store a trading API key, encrypted, and the setup guide has you leave withdrawals off.</p></details>
-<details><summary>Do I need to keep my computer on?</summary><p>No. Hermes runs on our server every 10 minutes, day and night.</p></details>
-<details><summary>Which exchanges?</summary><p>BloFin and Coinbase Advanced. You must be eligible to use the exchange under its own terms.</p></details>
-<details><summary>Will it make money?</summary><p>Nobody can promise that. It will trade with fixed limits, and it will lose some trades. Start with an amount you can afford to lose.</p></details>
-<details><summary>Can I stop it?</summary><p>Yes. Pause trading or delete your key at any time, and cancel the subscription anytime through Stripe.</p></details>
+<details><summary>Can I try it without real money?</summary><p>Yes. Switch to Paper, choose a starting balance, and it trades that at live market prices. The first run starts right away.</p></details>
+<details><summary>How often does it trade?</summary><p>It reviews the market every 15 minutes, on the server, so your computer or phone can be off. It may decide not to trade.</p></details>
+<details><summary>Does KnightTrader hold my money?</summary><p>No. Funds stay on your exchange. For live trading you add a trading API key with withdrawals off.</p></details>
+<details><summary>Which exchanges?</summary><p>BloFin and Coinbase. You must be eligible to use the exchange under its own terms.</p></details>
+<details><summary>Will it make money?</summary><p>Nobody can promise that. It trades within fixed limits, and it will lose some trades. Paper results don't guarantee live results.</p></details>
+<details><summary>Can I stop it?</summary><p>Yes. Pause trading or delete your key at any time, and cancel your subscription anytime through Stripe.</p></details>
 </div>
-<p class="disc"><b>Risk disclaimer.</b> Trading crypto and leveraged derivatives carries a high risk of loss, including loss of your whole deposit. KnightTrader is software, not a financial adviser, and nothing here is financial advice. Past performance, including lessons drawn from past trades, doesn't guarantee future results. You're responsible for your trades and for following your exchange's terms and the laws where you live.</p></div></section>
+<p class="disc"><b>Risk disclaimer.</b> Trading cryptocurrencies and leveraged derivatives carries a high risk of loss, including loss of your entire deposit. KnightTrader is software, not a financial adviser, and nothing on this site is financial advice. Paper trading results and past performance do not guarantee future results. You are responsible for your trades and for following your exchange's terms and the laws where you live.</p></div></section>
 </main>
-<footer class="site-footer"><div class="container"><p>KnightTrader — AI trading on your own exchange account.</p></div></footer>
+<footer class="site-footer"><div class="container"><p>KnightTrader: AI crypto trading, paper first. · <a href="https://knighttrader.tail7aa3c9.ts.net">Open the app</a></p></div></footer>
 </body></html>
