@@ -10,7 +10,7 @@
 .rules li{margin:8px 0}.disc{font-size:.85rem;opacity:.85;border-top:1px solid rgba(255,255,255,.1);padding-top:18px}
 .sec{padding:64px 0}.sec h2{margin-top:0}.lead{font-size:1.08rem;max-width:760px}.cta{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
 .steps{counter-reset:s}.risk-bar{background:rgba(255,180,0,.08);border:1px solid rgba(255,180,0,.35);border-radius:10px;padding:12px 16px;font-size:.9rem;margin:18px 0}
-.site-nav{flex-wrap:wrap}
+.site-nav{flex-wrap:wrap}.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:24px}.tier{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:26px;display:flex;flex-direction:column}.tier.best{border:2px solid #f5b400;box-shadow:0 0 30px rgba(245,180,0,.18)}.tier .price{font-size:2.4rem;font-weight:800}.tier .price span{font-size:1rem;opacity:.7}.tier ul{flex:1}.tier .btn-primary{text-align:center;display:block;margin-top:14px}.tag{display:inline-block;background:#f5b400;color:#111;font-weight:700;font-size:.75rem;border-radius:20px;padding:3px 10px;margin-bottom:8px}table.cmp{width:100%;border-collapse:collapse;margin-top:18px}table.cmp td,table.cmp th{border-bottom:1px solid rgba(255,255,255,.1);padding:10px;text-align:left;vertical-align:top}table.cmp th:nth-child(2){color:#f5b400}.stack li{margin:10px 0}
 @media (max-width:720px){.site-nav{display:none}.sec{padding:44px 0}.hero h1{font-size:1.9rem}.cta a,.hero-actions a{flex:1 1 100%;text-align:center}}
 </style></head><body>
 <header class="site-header"><div class="container"><div class="logo"><span class="logo-mark">KT</span><span class="logo-text">KnightTrader</span><span class="logo-badge">Web</span></div>
@@ -19,7 +19,7 @@
 <main>
 <section class="hero"><div class="container">
 <div class="hero-badge">Web app · Google sign-in · Paper trading first</div>
-<h1>An AI crypto trader you can watch work before you risk a dollar.</h1>
+<h1>I built an AI crypto trader that lives in the cloud, refuses to trade without a stop, and lets you watch it work before you risk a dollar.</h1>
 <p class="hero-sub">Sign in with Google, switch to Paper, pick a starting balance, and KnightTrader's AI starts trading it at live market prices right away. You see the first run happen while you watch, then it keeps going every 15 minutes. When you're ready, connect your own BloFin or Coinbase API keys to trade live.</p>
 <div class="hero-actions"><a class="btn-primary" href="https://knighttrader.tail7aa3c9.ts.net">Start paper trading</a><a class="btn-secondary" href="#pricing">See pricing</a></div>
 <p class="hero-trust">Your money stays on your exchange. For live trading you supply a trading-only API key, and you keep withdrawals switched off.</p>
@@ -59,6 +59,16 @@ var A=W/(r*(1-y)),g=r*y,a12=A*Math.pow(1+g,52),f=function(n){return '$'+n.toLoca
 o.innerHTML='Weekly growth rate: <b>'+(r*100).toFixed(2)+'%</b><br>Account size needed: <b>'+f(A)+'</b><br>Pays out about '+f(W)+'/week ('+f(W*4.345)+'/month) and reinvests '+f(A*r*y)+'/week.<br>With compounding, after 1 year the account is about '+f(a12)+' and the weekly payout is about '+f(W*Math.pow(1+g,52))+'.'}
 ['mmP','mmT','mmTu','mmW','mmWu','mmY'].forEach(function(i){document.getElementById(i).addEventListener('input',run)});run()})();
 </script></div></section>
+<section id="why" class="sec section-dark"><div class="wrap"><h2>Why I built it this way</h2>
+<p class="lead">Most trading bots I tried had two problems. You had to leave your own computer running, browser open, VPN on, all night. And when a trade went bad, they'd "average down": keep buying more of a loser and hope it comes back, with no stop. That works right up until the day it doesn't, and then it can take the whole account. I wanted the opposite, so I built it.</p>
+<table class="cmp"><tr><th></th><th>KnightTrader</th><th>Typical browser bot</th></tr>
+<tr><td>Where it runs</td><td>On our servers, 24/7. Your PC and phone can be off.</td><td>In your browser. PC on, tab open, often a VPN.</td></tr>
+<tr><td>Losing trades</td><td>Every position has a stop-loss, enforced in code. No stop, no trade.</td><td>Often averages into losers with no stop.</td></tr>
+<tr><td>Reward vs. risk</td><td>Minimum 2.5 to 1, checked before the order is sent.</td><td>Whatever the script does.</td></tr>
+<tr><td>Trying it out</td><td>Paper trading at live prices. First run starts while you watch.</td><td>Usually straight to real money.</td></tr>
+<tr><td>Getting smarter</td><td>Strategies compete; only a proven champion trades.</td><td>One fixed idea, forever.</td></tr>
+<tr><td>Your keys</td><td>Encrypted per user. Trading-only, withdrawals off.</td><td>Varies.</td></tr></table>
+</div></section>
 <section id="how" class="sec section-dark"><div class="wrap"><h2>How it works</h2><div class="grid steps">
 <div class="card"><h3>1. Sign in with Google</h3><p>Each person gets their own account, settings, memory and history.</p></div>
 <div class="card"><h3>2. Choose Paper and a starting balance</h3><p>Tell it how much simulated money to start with. Paper trades fill at live market prices, not made-up ones.</p></div>
@@ -110,11 +120,33 @@ o.innerHTML='Weekly growth rate: <b>'+(r*100).toFixed(2)+'%</b><br>Account size 
 <section id="security" class="sec"><div class="wrap"><h2>Your keys, your exchange</h2>
 <p>KnightTrader never holds your funds. Live trading needs a trading API key from your own exchange account, stored encrypted on the server. Keep withdrawals off on that key, so even a leaked key can't move money out.</p></div></section>
 
-<section id="pricing" class="sec section-accent"><div class="wrap"><h2>One plan, billed monthly</h2>
-<div class="pricing-card"><div class="pricing-header"><div class="pricing-price">$47<span>/month</span></div><div class="pricing-label">KnightTrader Web</div></div>
+<section id="stack" class="sec"><div class="wrap"><h2>Everything you get the moment you sign in</h2>
+<p class="lead">Here's the whole thing, in plain words:</p>
+<ul class="stack">
+<li>✅ <b>A trader that never sleeps and never needs your computer.</b> It checks the market every 15 minutes in the cloud. No PC left on, no VPN, no browser tab.</li>
+<li>✅ <b>Paper trading at live prices, starting right now.</b> Pick a pretend balance and watch the first AI run happen in front of you. No card needed to look.</li>
+<li>✅ <b>Stops it can't skip.</b> Stop-loss and take-profit on every trade, a 2.5-to-1 minimum reward-to-risk, capped leverage and a size ceiling, all enforced in code.</li>
+<li>✅ <b>A champion system.</b> Strategies fight it out on real prices. Only the winner gets to trade your account.</li>
+<li>✅ <b>A shared brain.</b> Every bot and account adds what it learns to one memory that has to be checked and agreed on before it's saved, like proof of stake, with no token and none of your money involved.</li>
+<li>✅ <b>Quantum-resistant records.</b> That memory is hash-chained and signed with post-quantum (ML-DSA) signatures.</li>
+<li>✅ <b>Your keys, locked up.</b> Encrypted per user, trading-only. Your money never leaves your own exchange.</li>
+<li>✅ <b>Medic</b>, which watches the system 24/7 and fixes problems at the root.</li>
+<li>✅ <b>Live public stats and the Matthew Metric calculator</b>, so you can see what's happening instead of taking my word for it.</li>
+</ul>
+<p class="lead">I'm proud of this. It isn't a promise of profit (nothing honest is), but it's the most careful trading machine I know how to build, and you can watch it before you pay a cent.</p>
+</div></section>
+
+<section id="pricing" class="sec section-accent"><div class="wrap"><h2>Pick your plan</h2>
+<div class="tiers">
+<div class="tier"><div class="pricing-label">Monthly</div><div class="price">$97<span>/month</span></div><ul class="pricing-list"><li>Everything above</li><li>Live trading on BloFin or Coinbase with your own keys</li><li>Cancel anytime through Stripe</li></ul><a class="btn-primary" href="https://buy.stripe.com/6oU28sfb0gkIa11dswe3e0h">Start Monthly: $97/mo</a></div>
+<div class="tier best"><span class="tag">Best value: 2 months free</span><div class="pricing-label">Annual</div><div class="price">$970<span>/year</span></div><ul class="pricing-list"><li>Everything in Monthly</li><li>12 months for the price of 10</li><li>Locks in this price for the year</li></ul><a class="btn-primary" href="https://buy.stripe.com/5kQfZifb08Sggppagke3e0i">Go Annual: $970/yr</a></div>
+<div class="tier"><span class="tag">Only 25 seats</span><div class="pricing-label">Lifetime Founder</div><div class="price">$1,497<span> once</span></div><ul class="pricing-list"><li>Everything, for as long as KnightTrader runs</li><li>Never a monthly bill</li><li>One of the first 25 believers</li></ul><a class="btn-primary" href="https://buy.stripe.com/9B6aEY5Aq9Wk5KL3RWe3e0j">Claim a Founder Seat: $1,497</a></div>
+</div>
+<p class="note"><small>Paper trading is free to try in the app. A paid plan unlocks live trading. Secure checkout by Stripe.</small></p>
+<div class="pricing-card" style="display:none">
 <ul class="pricing-list"><li>Paper trading at live prices, with your own starting balance</li><li>Live trading on your BloFin or Coinbase account with your own keys</li><li>AI strategy engine, mental trading and champion promotion</li><li>Shared, quantum-resistant memory network</li><li>Medic self-healing and the readiness dashboard</li><li>Cancel anytime through Stripe</li></ul>
-<div class="cta"><a class="btn-primary" href="https://buy.stripe.com/cNi3cwe6Wb0oc991JOe3e0b">Subscribe for $47/month</a><a class="btn-secondary" href="https://knighttrader.tail7aa3c9.ts.net">Open the app</a></div>
-</div></div></section>
+</div>
+<div class="cta"><a class="btn-secondary" href="https://knighttrader.tail7aa3c9.ts.net">Try it on paper first</a></div></div></section>
 
 <section id="faq" class="sec"><div class="wrap"><h2>FAQ</h2><div class="faq">
 <details><summary>Can I try it without real money?</summary><p>Yes. Switch to Paper, choose a starting balance, and it trades that at live market prices. The first run starts right away.</p></details>
@@ -122,7 +154,9 @@ o.innerHTML='Weekly growth rate: <b>'+(r*100).toFixed(2)+'%</b><br>Account size 
 <details><summary>Does KnightTrader hold my money?</summary><p>No. Funds stay on your exchange. For live trading you add a trading API key with withdrawals off.</p></details>
 <details><summary>Which exchanges?</summary><p>BloFin and Coinbase. You must be eligible to use the exchange under its own terms.</p></details>
 <details><summary>Will it make money?</summary><p>Nobody can promise that. It trades within fixed limits, and it will lose some trades. Paper results don't guarantee live results.</p></details>
-<details><summary>Can I stop it?</summary><p>Yes. Pause trading or delete your key at any time, and cancel your subscription anytime through Stripe.</p></details>
+<details><summary>What does Lifetime Founder mean?</summary><p>One payment of $1,497 gives your account paid access for as long as KnightTrader is offered, with no monthly bill. Only 25 seats.</p></details>
+<details><summary>Why can't it skip a stop-loss?</summary><p>The risk check runs in code before any order reaches your exchange. An order without a stop, or under 2.5 to 1 reward-to-risk, is rejected.</p></details>
+<details><summary>Can I stop it?</summary><p>Yes. Pause trading or delete your key at any time, and cancel a monthly or annual plan anytime through Stripe.</p></details>
 </div>
 <p class="disc"><b>Risk disclaimer.</b> Trading cryptocurrencies and leveraged derivatives carries a high risk of loss, including loss of your entire deposit. KnightTrader is software, not a financial adviser, and nothing on this site is financial advice. Paper trading results and past performance do not guarantee future results. You are responsible for your trades and for following your exchange's terms and the laws where you live.</p></div></section>
 </main>
