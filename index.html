@@ -24,7 +24,41 @@
 <div class="hero-actions"><a class="btn-primary" href="https://knighttrader.tail7aa3c9.ts.net">Start paper trading</a><a class="btn-secondary" href="#pricing">See pricing</a></div>
 <p class="hero-trust">Your money stays on your exchange. For live trading you supply a trading-only API key, and you keep withdrawals switched off.</p>
 </div></section>
+<section id="live-stats" class="sec section-dark" aria-label="Live engine stats"><div class="wrap">
+<div class="grid" style="text-align:center">
+<div class="card"><small>Current champion strategy</small><h3 data-kt="champion">Live from the engine</h3></div>
+<div class="card"><small>Active accounts</small><h3 data-kt="active_accounts">—</h3></div>
+<div class="card"><small>Open positions</small><h3 data-kt="open_positions">—</h3></div>
+<div class="card"><small>Trades closed this week</small><h3 data-kt="trades_closed_week">—</h3></div>
+<div class="card"><small>Bot cycle</small><h3><span data-kt="bot_cycle_minutes">15</span> min</h3></div>
+<div class="card"><small>Medic</small><h3 data-kt="medic_status">Monitoring</h3></div>
+</div>
+<p class="note"><small>Live stats, refreshed every minute. Updated <span data-kt="updated_at">recently</span>.</small></p>
+</div></section>
+<section id="mm" class="sec"><div class="wrap"><h2><span class="hero-badge">MM</span> The Matthew Metric</h2>
+<p class="lead">The Matthew Metric (MM) measures the power of your trading system as the weekly/monthly fiat income you can withdraw to sustain yourself, while your principal keeps working. Building new fiat mines.</p>
+<div class="grid"><div class="card"><small>MM this week</small><h3 data-kt="mm_week">—</h3></div><div class="card"><small>MM this month</small><h3 data-kt="mm_month">—</h3></div></div>
+<p class="note"><small data-kt="mm_basis">Paper results, not a guarantee.</small></p>
+</div></section>
 
+<section id="mm-calc" class="sec"><div class="wrap"><h2>MM Calculator: how big an account do you need?</h2>
+<p>Take your system's best verified run. Enter the highest profit % it made and the longest stretch of time it held up over, then your cash goal and how much profit you'll leave in to compound. This is an estimate based on past results, not a guarantee.</p>
+<div class="grid" style="gap:12px;max-width:640px">
+<label>Profit % achieved <input id="mmP" type="number" value="20" step="any"></label>
+<label>Over how long <input id="mmT" type="number" value="4" step="any"> <select id="mmTu"><option value="1">weeks</option><option value="4.345">months</option></select></label>
+<label>Withdrawable cash goal $ <input id="mmW" type="number" value="500" step="any"> <select id="mmWu"><option value="1">per week</option><option value="4.345">per month</option></select></label>
+<label>Reinvest % for compounding <input id="mmY" type="number" value="25" step="any"></label>
+</div>
+<div id="mmOut" style="margin-top:16px;font-size:1.15em"></div>
+<script>
+(function(){function v(i){return parseFloat(document.getElementById(i).value)||0}
+function run(){var P=v('mmP')/100,T=v('mmT')*v('mmTu'),W=v('mmW')/v('mmWu'),y=Math.min(v('mmY'),99.9)/100,o=document.getElementById('mmOut');
+if(P<=-1||T<=0||W<=0){o.textContent='Enter a profit %, a time period and a cash goal.';return}
+var r=Math.pow(1+P,1/T)-1;if(r<=0){o.textContent='That profit rate cannot fund withdrawals.';return}
+var A=W/(r*(1-y)),g=r*y,a12=A*Math.pow(1+g,52),f=function(n){return '$'+n.toLocaleString(undefined,{maximumFractionDigits:0})};
+o.innerHTML='Weekly growth rate: <b>'+(r*100).toFixed(2)+'%</b><br>Account size needed: <b>'+f(A)+'</b><br>Pays out about '+f(W)+'/week ('+f(W*4.345)+'/month) and reinvests '+f(A*r*y)+'/week.<br>With compounding, after 1 year the account is about '+f(a12)+' and the weekly payout is about '+f(W*Math.pow(1+g,52))+'.'}
+['mmP','mmT','mmTu','mmW','mmWu','mmY'].forEach(function(i){document.getElementById(i).addEventListener('input',run)});run()})();
+</script></div></section>
 <section id="how" class="sec section-dark"><div class="wrap"><h2>How it works</h2><div class="grid steps">
 <div class="card"><h3>1. Sign in with Google</h3><p>Each person gets their own account, settings, memory and history.</p></div>
 <div class="card"><h3>2. Choose Paper and a starting balance</h3><p>Tell it how much simulated money to start with. Paper trades fill at live market prices, not made-up ones.</p></div>
@@ -51,6 +85,7 @@
 <div class="card"><h3>Stake-weighted validation</h3><p>Any validator can propose an entry: a lesson, a strategy result, a promotion or a repair. It commits only after enough stake-weighted validators check it against real data and approve.</p></div>
 <div class="card"><h3>Append-only, hash-chained</h3><p>Approved entries become blocks linked by hash, so past entries can't be quietly edited.</p></div>
 <div class="card"><h3>Being wrong costs stake</h3><p>A validator whose entries later prove wrong loses stake, so it carries less weight next time.</p></div>
+<div class="card"><h3>Live chain</h3><p><span data-kt="ledger_blocks">—</span> blocks · head <code data-kt="ledger_head">—</code> · <span data-kt="signature_scheme">SHA3-256 + ML-DSA-44</span></p></div>
 <div class="card"><h3>Quantum-resistant</h3><p>The chain uses SHA3-256 hashing, and every proposal and vote carries an ML-DSA (FIPS 204) post-quantum signature.</p></div>
 <div class="card"><h3>Shared lessons, private accounts</h3><p>Only anonymized trading knowledge is pooled. Names, emails, API keys and balances are never shared.</p></div>
 </div>
@@ -92,4 +127,5 @@
 <p class="disc"><b>Risk disclaimer.</b> Trading cryptocurrencies and leveraged derivatives carries a high risk of loss, including loss of your entire deposit. KnightTrader is software, not a financial adviser, and nothing on this site is financial advice. Paper trading results and past performance do not guarantee future results. You are responsible for your trades and for following your exchange's terms and the laws where you live.</p></div></section>
 </main>
 <footer class="site-footer"><div class="container"><p>KnightTrader: AI crypto trading, paper first. · <a href="https://knighttrader.tail7aa3c9.ts.net">Open the app</a></p></div></footer>
+<script src="live-stats.js" defer></script>
 </body></html>
