@@ -1,351 +1,179 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://knighttrader.local/schema/knighttrader-telemetry-v1.schema.json",
-  "title": "KnightTrader telemetry snapshot v1",
-  "description": "Full read-only snapshot. The bridge copies tracker fields. It does not recompute Modified Dietz. Money and rates are decimal strings.",
+  "$id": "https://knighttrader.local/schema/muse.telemetry.v1.schema.json",
+  "title": "Muse telemetry snapshot v1",
+  "description": "Reference for the read-only desktop feed at GET /v1/snapshot and GET /v1/stream. Schema name is muse.telemetry.v1. This file documents the live shape. The page does not validate snapshots against it, and it does not add control or trading endpoints.",
   "type": "object",
   "additionalProperties": true,
-  "required": [
-    "schema",
-    "sentAt",
-    "sequence",
-    "source",
-    "account",
-    "performance",
-    "overview",
-    "positions",
-    "risk",
-    "fills",
-    "cashflows",
-    "gates",
-    "heartbeat",
-    "equityCurve"
-  ],
+  "required": ["schema", "groups"],
   "properties": {
-    "schema": { "const": "knighttrader.telemetry.v1" },
-    "sentAt": { "type": "string", "format": "date-time" },
-    "sequence": { "type": "integer", "minimum": 0 },
-    "source": { "$ref": "#/$defs/source" },
-    "account": { "$ref": "#/$defs/account" },
-    "performance": { "$ref": "#/$defs/performance" },
-    "overview": { "$ref": "#/$defs/overview" },
-    "positions": {
-      "type": "array",
-      "maxItems": 100,
-      "items": { "$ref": "#/$defs/position" }
-    },
-    "risk": { "$ref": "#/$defs/risk" },
-    "fills": {
-      "type": "array",
-      "maxItems": 200,
-      "items": { "$ref": "#/$defs/fill" }
-    },
-    "cashflows": {
-      "type": "array",
-      "maxItems": 200,
-      "items": { "$ref": "#/$defs/cashflow" }
-    },
-    "gates": {
-      "type": "array",
-      "maxItems": 50,
-      "items": { "$ref": "#/$defs/gate" }
-    },
-    "heartbeat": { "$ref": "#/$defs/heartbeat" },
-    "equityCurve": {
-      "type": "array",
-      "maxItems": 2000,
-      "items": { "$ref": "#/$defs/equityPoint" }
-    }
+    "schema": { "const": "muse.telemetry.v1" },
+    "bot": { "type": "string" },
+    "seq": { "type": "integer", "minimum": 0 },
+    "server_ts_ms": { "type": "integer" },
+    "server_ts_ny": { "type": "string" },
+    "ui_cadence_ms": { "type": "integer", "minimum": 0 },
+    "note": { "type": "string" },
+    "build_ms": { "type": "integer" },
+    "groups": { "$ref": "#/$defs/groups" }
   },
   "$defs": {
-    "decimal": {
-      "type": "string",
-      "pattern": "^-?(?:0|[1-9][0-9]*)(?:\\.[0-9]+)?$"
+    "nullable": {
+      "anyOf": [{ "type": "null" }, {}]
     },
-    "decimalOrNull": {
-      "anyOf": [{ "type": "null" }, { "$ref": "#/$defs/decimal" }]
-    },
-    "dateOrNull": {
-      "anyOf": [
-        { "type": "null" },
-        { "type": "string", "format": "date-time" }
-      ]
-    },
-    "id": {
-      "type": "string",
-      "minLength": 1,
-      "maxLength": 80,
-      "pattern": "^[A-Za-z0-9._:-]+$"
-    },
-    "source": {
+    "envelope": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["epoch", "bridge", "live", "tracker", "partialPeriods", "notice"],
       "properties": {
-        "epoch": { "type": "string", "minLength": 1, "maxLength": 128 },
-        "bridge": { "type": "string", "minLength": 1, "maxLength": 128 },
-        "live": { "type": "boolean" },
-        "tracker": { "const": "modified-dietz" },
-        "partialPeriods": { "const": "initial" },
-        "notice": { "anyOf": [{ "type": "null" }, { "type": "string", "maxLength": 500 }] }
-      }
-    },
-    "account": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": ["equityUsd", "asOf", "baseline"],
-      "properties": {
-        "equityUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "asOf": { "$ref": "#/$defs/dateOrNull" },
-        "baseline": {
-          "type": "object",
-          "additionalProperties": true,
-          "required": ["equityUsd", "asOf", "timezone"],
-          "properties": {
-            "equityUsd": { "$ref": "#/$defs/decimal" },
-            "asOf": { "type": "string", "format": "date-time" },
-            "timezone": { "const": "America/New_York" }
-          }
-        }
+        "as_of_ms": { "type": "integer" },
+        "as_of_ny": { "type": "string" },
+        "stale_after_ms": { "type": "integer" },
+        "source": { "type": "string" },
+        "error": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "age_ms": { "type": "integer" },
+        "fresh": { "type": "boolean" }
       }
     },
     "period": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["pnlUsd", "returnPct", "externalFlowsUsd", "start", "end"],
       "properties": {
-        "pnlUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "returnPct": { "$ref": "#/$defs/decimalOrNull" },
-        "externalFlowsUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "start": { "$ref": "#/$defs/dateOrNull" },
-        "end": { "$ref": "#/$defs/dateOrNull" }
+        "pnl": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "pct": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "cashflow": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "partial": { "type": "boolean" },
+        "baseline_label": { "type": "string" },
+        "baseline_equity": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "baseline_time_ms": { "anyOf": [{ "type": "null" }, { "type": "integer" }] },
+        "error": { "anyOf": [{ "type": "null" }, { "type": "string" }] }
       }
     },
-    "performance": {
+    "closedTrade": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["method", "partialPeriods", "computedBy", "today", "week", "month", "total"],
       "properties": {
-        "method": { "const": "modified-dietz" },
-        "partialPeriods": { "const": "initial" },
-        "computedBy": { "const": "bot-tracker" },
-        "today": { "$ref": "#/$defs/period" },
-        "week": { "$ref": "#/$defs/period" },
-        "month": { "$ref": "#/$defs/period" },
-        "total": { "$ref": "#/$defs/period" }
-      }
-    },
-    "record": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": ["wins", "losses", "scratches", "winRatePct", "avgR"],
-      "properties": {
-        "wins": { "type": "integer", "minimum": 0 },
-        "losses": { "type": "integer", "minimum": 0 },
-        "scratches": { "type": "integer", "minimum": 0 },
-        "winRatePct": { "$ref": "#/$defs/decimalOrNull" },
-        "avgR": { "$ref": "#/$defs/decimalOrNull" }
-      }
-    },
-    "overview": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "asOf",
-        "openTradeCount",
-        "openTrades",
-        "today",
-        "allTime",
-        "btcTrend",
-        "topMovers",
-        "idleReason"
-      ],
-      "properties": {
-        "asOf": { "$ref": "#/$defs/dateOrNull" },
-        "openTradeCount": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
-        "openTrades": {
-          "type": "array",
-          "maxItems": 50,
-          "items": {
-            "type": "object",
-            "additionalProperties": true,
-            "required": ["coin", "side", "notionalUsd"],
-            "properties": {
-              "coin": { "type": "string", "minLength": 1, "maxLength": 32 },
-              "side": { "enum": ["long", "short"] },
-              "notionalUsd": { "$ref": "#/$defs/decimalOrNull" }
-            }
-          }
-        },
-        "today": { "$ref": "#/$defs/record" },
-        "allTime": { "$ref": "#/$defs/record" },
-        "btcTrend": {
-          "type": "object",
-          "additionalProperties": true,
-          "required": ["bias", "asOf", "note"],
-          "properties": {
-            "bias": { "enum": ["up", "down", "flat", "unknown"] },
-            "asOf": { "$ref": "#/$defs/dateOrNull" },
-            "note": { "type": "string", "maxLength": 500 }
-          }
-        },
-        "topMovers": {
-          "type": "array",
-          "maxItems": 20,
-          "items": {
-            "type": "object",
-            "additionalProperties": true,
-            "required": ["coin", "changePct", "window", "asOf"],
-            "properties": {
-              "coin": { "type": "string", "minLength": 1, "maxLength": 32 },
-              "changePct": { "$ref": "#/$defs/decimalOrNull" },
-              "window": { "type": "string", "minLength": 1, "maxLength": 40 },
-              "asOf": { "$ref": "#/$defs/dateOrNull" }
-            }
-          }
-        },
-        "idleReason": { "anyOf": [{ "type": "null" }, { "type": "string", "maxLength": 500 }] }
-      }
-    },
-    "position": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "coin",
-        "side",
-        "size",
-        "entryPx",
-        "markPx",
-        "unrealizedPnlUsd",
-        "leverage",
-        "notionalUsd",
-        "liquidationPx",
-        "marginUsedUsd",
-        "asOf"
-      ],
-      "properties": {
-        "coin": { "type": "string", "minLength": 1, "maxLength": 32 },
-        "side": { "enum": ["long", "short"] },
-        "size": { "$ref": "#/$defs/decimal" },
-        "entryPx": { "$ref": "#/$defs/decimalOrNull" },
-        "markPx": { "$ref": "#/$defs/decimalOrNull" },
-        "unrealizedPnlUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "leverage": { "$ref": "#/$defs/decimalOrNull" },
-        "notionalUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "liquidationPx": { "$ref": "#/$defs/decimalOrNull" },
-        "marginUsedUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "asOf": { "$ref": "#/$defs/dateOrNull" }
-      }
-    },
-    "risk": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": [
-        "asOf",
-        "grossExposureUsd",
-        "netExposureUsd",
-        "longExposureUsd",
-        "shortExposureUsd",
-        "marginUsedUsd",
-        "marginAvailableUsd",
-        "withdrawableUsd",
-        "accountLeverage",
-        "largestPositionPct",
-        "notes"
-      ],
-      "properties": {
-        "asOf": { "$ref": "#/$defs/dateOrNull" },
-        "grossExposureUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "netExposureUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "longExposureUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "shortExposureUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "marginUsedUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "marginAvailableUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "withdrawableUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "accountLeverage": { "$ref": "#/$defs/decimalOrNull" },
-        "largestPositionPct": { "$ref": "#/$defs/decimalOrNull" },
-        "notes": {
-          "type": "array",
-          "maxItems": 12,
-          "items": { "type": "string", "maxLength": 240 }
-        }
+        "coin": { "type": "string" },
+        "side": { "type": "string" },
+        "tf": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "result": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "r": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "entry": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "exit": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "reason": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "ts_ny": { "anyOf": [{ "type": "null" }, { "type": "string" }] }
       }
     },
     "fill": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["id", "time", "coin", "side", "px", "sz", "closedPnlUsd", "outcome", "feeUsd", "dir"],
       "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "time": { "type": "string", "format": "date-time" },
-        "coin": { "type": "string", "minLength": 1, "maxLength": 32 },
-        "side": { "enum": ["buy", "sell"] },
-        "px": { "$ref": "#/$defs/decimal" },
-        "sz": { "$ref": "#/$defs/decimal" },
-        "closedPnlUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "outcome": { "enum": ["winner", "loser", "scratch", "open", "unclassified"] },
-        "feeUsd": { "$ref": "#/$defs/decimalOrNull" },
-        "dir": { "type": "string", "maxLength": 80 }
+        "kind": { "type": "string" },
+        "coin": { "type": "string" },
+        "side": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "tf": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "result": { "anyOf": [{ "type": "null" }, { "type": "string" }] },
+        "r": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "entry": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "exit": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+        "ts_ny": { "anyOf": [{ "type": "null" }, { "type": "string" }] }
       }
     },
-    "cashflow": {
+    "groups": {
       "type": "object",
       "additionalProperties": true,
-      "required": ["id", "time", "kind", "amountUsd", "externalFlow", "note"],
       "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "time": { "type": "string", "format": "date-time" },
-        "kind": { "enum": ["deposit", "withdrawal", "funding", "fee", "internal", "other"] },
-        "amountUsd": { "$ref": "#/$defs/decimal" },
-        "externalFlow": { "type": "boolean" },
-        "note": { "type": "string", "maxLength": 240 }
-      }
-    },
-    "gate": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": ["id", "name", "state", "reason", "asOf"],
-      "properties": {
-        "id": { "$ref": "#/$defs/id" },
-        "name": { "type": "string", "minLength": 1, "maxLength": 80 },
-        "state": { "enum": ["open", "blocked", "unknown"] },
-        "reason": { "type": "string", "maxLength": 500 },
-        "asOf": { "$ref": "#/$defs/dateOrNull" }
-      }
-    },
-    "heartbeat": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": ["status", "lastBeatAt", "botVersion", "trackerLagMs", "feeds"],
-      "properties": {
-        "status": { "enum": ["alive", "degraded", "down"] },
-        "lastBeatAt": { "$ref": "#/$defs/dateOrNull" },
-        "botVersion": { "anyOf": [{ "type": "null" }, { "type": "string", "maxLength": 80 }] },
-        "trackerLagMs": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] },
-        "feeds": {
-          "type": "array",
-          "maxItems": 20,
-          "items": {
-            "type": "object",
-            "additionalProperties": true,
-            "required": ["name", "status", "lastAt", "lagMs"],
-            "properties": {
-              "name": { "type": "string", "minLength": 1, "maxLength": 64 },
-              "status": { "enum": ["fresh", "stale", "down"] },
-              "lastAt": { "$ref": "#/$defs/dateOrNull" },
-              "lagMs": { "anyOf": [{ "type": "null" }, { "type": "integer", "minimum": 0 }] }
+        "account": {
+          "allOf": [
+            { "$ref": "#/$defs/envelope" },
+            {
+              "type": "object",
+              "properties": {
+                "balance": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+                "baseline": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "properties": {
+                    "equity": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+                    "time_ms": { "anyOf": [{ "type": "null" }, { "type": "integer" }] },
+                    "label_ny": { "type": "string" },
+                    "requested_ny": { "type": "string" }
+                  }
+                },
+                "periods": {
+                  "type": "object",
+                  "additionalProperties": { "$ref": "#/$defs/period" },
+                  "properties": {
+                    "Today": { "$ref": "#/$defs/period" },
+                    "This Week": { "$ref": "#/$defs/period" },
+                    "This Month": { "$ref": "#/$defs/period" },
+                    "Total": { "$ref": "#/$defs/period" }
+                  }
+                },
+                "ledger_ok": { "type": "boolean" },
+                "account_mode": { "type": "string" }
+              }
             }
-          }
+          ]
+        },
+        "bot_health": { "$ref": "#/$defs/envelope" },
+        "trades": {
+          "allOf": [
+            { "$ref": "#/$defs/envelope" },
+            {
+              "type": "object",
+              "properties": {
+                "open": { "type": "array", "items": { "type": "object", "additionalProperties": true } },
+                "today_score": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "properties": {
+                    "day": { "type": "string" },
+                    "net_r": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+                    "trades": { "anyOf": [{ "type": "null" }, { "type": "integer" }] },
+                    "wins": { "anyOf": [{ "type": "null" }, { "type": "integer" }] }
+                  }
+                },
+                "all_time_score": {
+                  "type": "object",
+                  "additionalProperties": true,
+                  "properties": {
+                    "net_r": { "anyOf": [{ "type": "null" }, { "type": "number" }] },
+                    "trades": { "anyOf": [{ "type": "null" }, { "type": "integer" }] },
+                    "wins": { "anyOf": [{ "type": "null" }, { "type": "integer" }] }
+                  }
+                }
+              }
+            }
+          ]
+        },
+        "signals": { "$ref": "#/$defs/envelope" },
+        "journal": {
+          "allOf": [
+            { "$ref": "#/$defs/envelope" },
+            {
+              "type": "object",
+              "properties": {
+                "closed": { "type": "array", "items": { "$ref": "#/$defs/closedTrade" } },
+                "recent_fills": { "type": "array", "items": { "$ref": "#/$defs/fill" } },
+                "cashflows": { "type": "array", "items": { "type": "object", "additionalProperties": true } }
+              }
+            }
+          ]
+        },
+        "market": {
+          "allOf": [
+            { "$ref": "#/$defs/envelope" },
+            {
+              "type": "object",
+              "properties": {
+                "mids": {
+                  "type": "object",
+                  "additionalProperties": { "anyOf": [{ "type": "null" }, { "type": "number" }, { "type": "string" }] }
+                }
+              }
+            }
+          ]
         }
-      }
-    },
-    "equityPoint": {
-      "type": "object",
-      "additionalProperties": true,
-      "required": ["t", "equityUsd"],
-      "properties": {
-        "t": { "type": "string", "format": "date-time" },
-        "equityUsd": { "$ref": "#/$defs/decimal" }
       }
     }
   }
